@@ -9,6 +9,8 @@ import { Workout } from "./health/shared/services/workouts.service";
 export type State = {
   user: User | null
   meals: Meal[]
+  selected: any
+  list: any
   schedule: ScheduleItem[],
   date: Date
   workouts: Workout[]
@@ -18,6 +20,8 @@ export type State = {
 const state: State = {
   user: null,
   meals: null,
+  selected: null,
+  list: null,
   schedule: null,
   date: null,
   workouts: null

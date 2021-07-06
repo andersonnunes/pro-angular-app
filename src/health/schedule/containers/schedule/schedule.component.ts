@@ -1,7 +1,9 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
+import { Meal, MealsService } from 'src/health/shared/services/meals.service';
 
 import { ScheduleItem, ScheduleService } from 'src/health/shared/services/schedule.service';
+import { Workout, WorkoutsService } from 'src/health/shared/services/workouts.service';
 import { Store } from 'src/store';
 
 @Component({
@@ -17,17 +19,31 @@ import { Store } from 'src/store';
         (select)="changeSection($event)">
       </schedule-calendar>
 
+      <schedule-assign
+        *ngIf="open"
+        [section]="selected$ | async"
+        [list]="list$ | async"
+        (update)="assignItem($event)"
+        (cancel)="closeAssign()">
+      </schedule-assign>
+
     </div>
   `
 })
 export class ScheduleComponent implements OnInit, OnDestroy {
 
+  open = false;
+
   date$: Observable<Date>;
+  selected$: Observable<any>;
+  list$: Observable<Meal[] | Workout[]>;
   schedule$: Observable<ScheduleItem[]>;
   subscriptions: Subscription[] = [];
 
   constructor(
     private store: Store,
+    private mealsService: MealsService,
+    private workoutsService: WorkoutsService,
     private scheduleService: ScheduleService
   ) { }
 
@@ -36,21 +52,37 @@ export class ScheduleComponent implements OnInit, OnDestroy {
   }
 
   changeSection(event: any) {
+    this.open = true;
     this.scheduleService.selectSection(event);
   }
 
   ngOnInit() {
     this.date$ = this.store.select('date');
     this.schedule$ = this.store.select('schedule');
+    this.selected$ = this.store.select('selected');
+    this.list$ = this.store.select('list');
 
     this.subscriptions = [
       this.scheduleService.schedule$.subscribe(),
       this.scheduleService.selected$.subscribe(),
+      this.scheduleService.list$.subscribe(),
+      this.scheduleService.items$.subscribe(),
+      this.mealsService.meals$.subscribe(),
+      this.workoutsService.workouts$.subscribe(),
     ];
   }
 
   ngOnDestroy() {
     this.subscriptions.forEach(sub => sub.unsubscribe());
+  }
+
+  assignItem(items: string[]) {
+    this.scheduleService.updateItems(items);
+    this.closeAssign();
+  }
+
+  closeAssign() {
+    this.open = false;
   }
 
 }
