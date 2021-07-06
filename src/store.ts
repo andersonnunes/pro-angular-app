@@ -2,14 +2,17 @@ import { BehaviorSubject, Observable } from "rxjs";
 import { distinctUntilChanged, pluck } from "rxjs/operators";
 
 import { User } from "./auth/shared/services/auth/auth.service";
+import { Meal } from "./health/schedule/services/meals.service";
 
 export type State = {
   user: User | null
+  meals: Meal[]
   [key: string]: any
 }
 
 const state: State = {
-  user: null
+  user: null,
+  meals: []
 };
 
 export class Store {
