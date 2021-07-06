@@ -23,9 +23,14 @@ import { Workout } from 'src/health/shared/services/workouts.service';
               Workout name is required
             </div>
           </label>
+
+          <label>
+            <h3>Type</h3>
+            <workout-type
+              formControlName="type">
+            </workout-type>
+          </label>
         </div>
-
-
 
         <div class="workout-form__submit">
           <div>
@@ -97,7 +102,8 @@ export class WorkoutFormComponent implements OnChanges {
   remove = new EventEmitter<Workout>();
 
   form = this.fb.group({
-    name: ['', Validators.required]
+    name: ['', Validators.required],
+    type: 'strength',
   });
 
   constructor(
