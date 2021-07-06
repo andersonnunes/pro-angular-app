@@ -29,7 +29,9 @@ import { WorkoutPipe } from './pipes/workout.pipe';
     AngularFireDatabaseModule
   ],
   exports: [
-    ListItemComponent
+    ListItemComponent,
+    JoinPipe,
+    WorkoutPipe
   ]
 })
 export class SharedModule {
