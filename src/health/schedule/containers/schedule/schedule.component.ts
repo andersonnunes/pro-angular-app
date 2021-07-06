@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
 
-import { ScheduleService } from 'src/health/shared/services/schedule.service';
+import { ScheduleItem, ScheduleService } from 'src/health/shared/services/schedule.service';
 import { Store } from 'src/store';
 
 @Component({
@@ -12,7 +12,9 @@ import { Store } from 'src/store';
 
       <schedule-calendar
         [date]="date$ | async"
-        (change)="changeDate($event)">
+        [items]="schedule$ | async"
+        (change)="changeDate($event)"
+        (select)="changeSection($event)">
       </schedule-calendar>
 
     </div>
@@ -21,6 +23,7 @@ import { Store } from 'src/store';
 export class ScheduleComponent implements OnInit, OnDestroy {
 
   date$: Observable<Date>;
+  schedule$: Observable<ScheduleItem[]>;
   subscriptions: Subscription[] = [];
 
   constructor(
@@ -32,11 +35,17 @@ export class ScheduleComponent implements OnInit, OnDestroy {
     this.scheduleService.updateDate(date);
   }
 
+  changeSection(event: any) {
+    this.scheduleService.selectSection(event);
+  }
+
   ngOnInit() {
     this.date$ = this.store.select('date');
+    this.schedule$ = this.store.select('schedule');
 
     this.subscriptions = [
       this.scheduleService.schedule$.subscribe(),
+      this.scheduleService.selected$.subscribe(),
     ];
   }
 
