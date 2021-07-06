@@ -2,6 +2,8 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
 
+import { SharedModule } from '../shared/shared.module';
+
 import { LoginComponent } from './containers/login/login.component';
 
 export const ROUTES: Routes = [
@@ -14,7 +16,8 @@ export const ROUTES: Routes = [
   ],
   imports: [
     CommonModule,
-    RouterModule.forChild(ROUTES)
+    RouterModule.forChild(ROUTES),
+    SharedModule
   ]
 })
 export class LoginModule { }
