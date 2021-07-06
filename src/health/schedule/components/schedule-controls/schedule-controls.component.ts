@@ -12,7 +12,7 @@ import { Component, Input, Output, EventEmitter, ChangeDetectionStrategy } from 
         (click)="moveDate(offset - 1)">
         <img src="assets/chevron-left.svg">
       </button>
-      <p>{{ selected | date:'yMMMMd' }}</p>
+      <p>{{ selected | date:'d MMMM y' }}</p>
       <button
         type="button"
         (click)="moveDate(offset + 1)">
