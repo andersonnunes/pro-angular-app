@@ -1,6 +1,5 @@
 import { Component, OnChanges, SimpleChanges, Input, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
 import { FormArray, FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
-
 import { Workout } from 'src/health/shared/services/workouts.service';
 
 @Component({
@@ -17,13 +16,12 @@ import { Workout } from 'src/health/shared/services/workouts.service';
             <h3>Workout name</h3>
             <input
               type="text"
-              placeholder="e.g. English Breakfast"
+              [placeholder]="placeholder"
               formControlName="name">
             <div class="error" *ngIf="required">
               Workout name is required
             </div>
           </label>
-
           <label>
             <h3>Type</h3>
             <workout-type
@@ -139,7 +137,6 @@ export class WorkoutFormComponent implements OnChanges {
   @Output()
   remove = new EventEmitter<Workout>();
 
-
   form = this.fb.group({
     name: ['', Validators.required],
     type: 'strength',
@@ -158,7 +155,16 @@ export class WorkoutFormComponent implements OnChanges {
     private fb: FormBuilder
   ) { }
 
+  get placeholder() {
+    return `e.g. ${this.form.get('type').value === 'strength' ? 'Benchpress' : 'Treadmill'}`;
+  }
+
   ngOnChanges(changes: SimpleChanges) {
+    if (this.workout && this.workout.name) {
+      this.exists = true;
+      const value = this.workout;
+      this.form.patchValue(value);
+    }
   }
 
   get required() {

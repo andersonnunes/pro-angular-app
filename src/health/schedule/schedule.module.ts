@@ -5,6 +5,9 @@ import { ReactiveFormsModule } from '@angular/forms';
 
 // containers
 import { ScheduleComponent } from './containers/schedule/schedule.component';
+import { ScheduleCalendarComponent } from './components/schedule-calendar/schedule-calendar.component';
+import { ScheduleControlsComponent } from './components/schedule-controls/schedule-controls.component';
+import { ScheduleDaysComponent } from './components/schedule-days/schedule-days.component';
 
 export const ROUTES: Routes = [
   { path: '', component: ScheduleComponent }
@@ -12,7 +15,10 @@ export const ROUTES: Routes = [
 
 @NgModule({
   declarations: [
-    ScheduleComponent
+    ScheduleComponent,
+    ScheduleCalendarComponent,
+    ScheduleControlsComponent,
+    ScheduleDaysComponent
   ],
   imports: [
     CommonModule,

@@ -8,6 +8,7 @@ import { Workout } from "./health/shared/services/workouts.service";
 export type State = {
   user: User | null
   meals: Meal[]
+  date: Date
   workouts: Workout[]
   [key: string]: any
 }
@@ -15,6 +16,7 @@ export type State = {
 const state: State = {
   user: null,
   meals: null,
+  date: null,
   workouts: null
 };
 
