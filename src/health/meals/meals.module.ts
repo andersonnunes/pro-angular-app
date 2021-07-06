@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
 
-import { SharedModule } from 'src/auth/shared/shared.module';
+import { SharedModule } from 'src/health/shared/shared.module';
 
 // containers
 import { MealsComponent } from './containers/meals/meals.component';

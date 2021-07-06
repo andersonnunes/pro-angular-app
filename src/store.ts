@@ -12,7 +12,7 @@ export type State = {
 
 const state: State = {
   user: null,
-  meals: []
+  meals: null
 };
 
 export class Store {

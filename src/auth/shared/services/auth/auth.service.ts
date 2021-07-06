@@ -12,6 +12,8 @@ export type User = {
 
 @Injectable()
 export class AuthService {
+  _user!: User;
+
   auth$ = this.af.authState
     .pipe(
       tap(next => {
@@ -25,6 +27,7 @@ export class AuthService {
           authenticated: true
         };
         this.store.set('user', user);
+        this._user = user;
       })
     );
 
@@ -33,7 +36,7 @@ export class AuthService {
     private af: AngularFireAuth) { }
 
   get user() {
-    return this.af.currentUser;
+    return this._user;
   }
 
   get authState() {
