@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Observable, of, Subscription } from 'rxjs';
 
-import { Meal, MealsService } from 'src/health/schedule/services/meals.service';
+import { Meal, MealsService } from '../../../shared/services/meals.service';
 import { Store } from 'src/store';
 
 @Component({
