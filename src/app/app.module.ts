@@ -9,6 +9,7 @@ import { AuthModule } from 'src/auth/auth.module';
 
 // containers
 import { AppComponent } from './containers/app/app.component';
+import { HealthModule } from 'src/health/health.module';
 
 // components
 import { AppHeaderComponent } from './components/app-header/app-header.component';
@@ -26,7 +27,8 @@ export const ROUTES: Routes = [];
   imports: [
     BrowserModule,
     RouterModule.forRoot(ROUTES),
-    AuthModule
+    AuthModule,
+    HealthModule
   ],
   providers: [Store],
   bootstrap: [AppComponent]
